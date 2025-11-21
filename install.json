@@ -1,0 +1,51 @@
+{
+  "run": [
+    {
+      "method": "shell.run",
+      "params": {
+        "message": [
+          "git clone https://github.com/nari-labs/dia2 app"
+        ]
+      }
+    },
+    {
+      "method": "script.start",
+      "params": {
+        "uri": "torch.js",
+        "params": {
+          "path": "app",
+          "venv": "venv",
+          "xformers": false,
+          "triton": false,
+          "sageattention": false
+        }
+      }
+    },
+    {
+      "method": "shell.run",
+      "params": {
+        "venv": "venv",
+        "path": "app",
+        "chain": true,
+        "input": null,
+        "message": [
+          "uv pip install -e ."
+        ]
+      }
+    },
+    {
+      "method": "fs.copy",
+      "params": {
+        "src": "gradio_app.py",
+        "dest": "app/gradio_app.py"
+      }
+    },
+    {
+      "method": "fs.copy",
+      "params": {
+        "src": "voice_clone.py",
+        "dest": "app/dia2/runtime/voice_clone.py"
+      }
+    }
+  ]
+}
